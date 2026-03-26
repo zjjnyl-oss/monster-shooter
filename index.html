@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>答题大炮 - 打败怪物！</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="gc"></canvas>
+
+  <!-- 主菜单 -->
+  <div id="ui-menu" class="ui-overlay active">
+    <div class="menu-box">
+      <div class="menu-icon">💣</div>
+      <h1 class="menu-title">答题大炮</h1>
+      <p class="menu-sub">打中正确答案，消灭怪物！</p>
+      <button class="btn btn-play" onclick="Game.showLevels()">🎮 开始战斗</button>
+      <button class="btn btn-how" onclick="Game.showHelp()">❓ 怎么玩</button>
+    </div>
+  </div>
+
+  <!-- 帮助 -->
+  <div id="ui-help" class="ui-overlay">
+    <div class="menu-box help-box">
+      <h2>怎么玩？</h2>
+      <div class="help-steps">
+        <div class="help-step"><span class="hs-icon">👀</span><span>看底部的题目</span></div>
+        <div class="help-step"><span class="hs-icon">💣</span><span>怪物会扔下答案炸弹</span></div>
+        <div class="help-step"><span class="hs-icon">👆</span><span>点击正确答案的炸弹</span></div>
+        <div class="help-step"><span class="hs-icon">💥</span><span>答对 = 伤害怪物！</span></div>
+        <div class="help-step"><span class="hs-icon">❌</span><span>答错 = 你掉血！</span></div>
+        <div class="help-step"><span class="hs-icon">🏆</span><span>消灭怪物过关！</span></div>
+      </div>
+      <button class="btn btn-back" onclick="Game.showMenu()">返回</button>
+    </div>
+  </div>
+
+  <!-- 关卡选择 -->
+  <div id="ui-levels" class="ui-overlay">
+    <div class="menu-box levels-box">
+      <h2>选择关卡</h2>
+      <div class="levels-grid" id="levels-grid"></div>
+      <button class="btn btn-back" onclick="Game.showMenu()">返回</button>
+    </div>
+  </div>
+
+  <!-- 关卡开始 -->
+  <div id="ui-start" class="ui-overlay">
+    <div class="start-box" id="start-box">
+      <div class="start-monster" id="start-monster"></div>
+      <div class="start-name" id="start-name"></div>
+      <div class="start-hp" id="start-hp"></div>
+      <div class="start-ready">准备战斗！</div>
+    </div>
+  </div>
+
+  <!-- 通关 -->
+  <div id="ui-win" class="ui-overlay">
+    <div class="menu-box result-box">
+      <div class="result-icon">🎉</div>
+      <h2 id="win-title">胜利！</h2>
+      <div class="result-stars" id="win-stars"></div>
+      <p id="win-msg"></p>
+      <div class="result-btns">
+        <button class="btn btn-next" id="btn-next" onclick="Game.nextLevel()">下一关 ▶</button>
+        <button class="btn btn-retry" onclick="Game.retryLevel()">再打一次</button>
+        <button class="btn btn-back" onclick="Game.showLevels()">选关卡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 失败 -->
+  <div id="ui-lose" class="ui-overlay">
+    <div class="menu-box result-box">
+      <div class="result-icon">💀</div>
+      <h2>被打败了…</h2>
+      <p id="lose-msg">别灰心，再来一次！</p>
+      <div class="result-btns">
+        <button class="btn btn-retry" onclick="Game.retryLevel()">🔄 再来！</button>
+        <button class="btn btn-back" onclick="Game.showLevels()">选关卡</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
