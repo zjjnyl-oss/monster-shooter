@@ -11,76 +11,72 @@
 <body>
   <canvas id="gc"></canvas>
 
+  <!-- 发射按钮 (游戏中常驻) -->
+  <button id="fire-btn" class="fire-btn" style="display:none">发射<br>🔥</button>
+
   <!-- 主菜单 -->
-  <div id="ui-menu" class="ui-overlay active">
-    <div class="menu-box">
-      <div class="menu-icon">💣</div>
-      <h1 class="menu-title">答题大炮</h1>
-      <p class="menu-sub">打中正确答案，消灭怪物！</p>
-      <button class="btn btn-play" onclick="Game.showLevels()">🎮 开始战斗</button>
-      <button class="btn btn-how" onclick="Game.showHelp()">❓ 怎么玩</button>
+  <div id="ui-menu" class="ui active">
+    <div class="box">
+      <div class="menu-icon">🔫</div>
+      <h1 class="title">答题大炮</h1>
+      <p class="sub">移动炮管，瞄准正确答案，开炮！</p>
+      <button class="btn play" onclick="G.showLevels()">🎮 开始战斗</button>
+      <button class="btn ghost" onclick="G.showHelp()">❓ 怎么玩</button>
     </div>
   </div>
 
   <!-- 帮助 -->
-  <div id="ui-help" class="ui-overlay">
-    <div class="menu-box help-box">
+  <div id="ui-help" class="ui">
+    <div class="box">
       <h2>怎么玩？</h2>
-      <div class="help-steps">
-        <div class="help-step"><span class="hs-icon">👀</span><span>看底部的题目</span></div>
-        <div class="help-step"><span class="hs-icon">💣</span><span>怪物会扔下答案炸弹</span></div>
-        <div class="help-step"><span class="hs-icon">👆</span><span>点击正确答案的炸弹</span></div>
-        <div class="help-step"><span class="hs-icon">💥</span><span>答对 = 伤害怪物！</span></div>
-        <div class="help-step"><span class="hs-icon">❌</span><span>答错 = 你掉血！</span></div>
-        <div class="help-step"><span class="hs-icon">🏆</span><span>消灭怪物过关！</span></div>
+      <div class="steps">
+        <div class="step"><b>👀</b> 看底部题目</div>
+        <div class="step"><b>👆</b> 左右滑动移动炮管瞄准</div>
+        <div class="step"><b>🔥</b> 按发射键射击正确答案</div>
+        <div class="step"><b>💥</b> 命中正确 → 怪物掉血！</div>
+        <div class="step"><b>❌</b> 打错了 → 你掉血！</div>
+        <div class="step"><b>🏆</b> 打光怪物血量过关！</div>
       </div>
-      <button class="btn btn-back" onclick="Game.showMenu()">返回</button>
+      <button class="btn ghost" onclick="G.showMenu()">返回</button>
     </div>
   </div>
 
   <!-- 关卡选择 -->
-  <div id="ui-levels" class="ui-overlay">
-    <div class="menu-box levels-box">
+  <div id="ui-levels" class="ui">
+    <div class="box wide">
       <h2>选择关卡</h2>
-      <div class="levels-grid" id="levels-grid"></div>
-      <button class="btn btn-back" onclick="Game.showMenu()">返回</button>
+      <div class="lvgrid" id="lvgrid"></div>
+      <button class="btn ghost" onclick="G.showMenu()">返回</button>
     </div>
   </div>
 
   <!-- 关卡开始 -->
-  <div id="ui-start" class="ui-overlay">
-    <div class="start-box" id="start-box">
-      <div class="start-monster" id="start-monster"></div>
-      <div class="start-name" id="start-name"></div>
-      <div class="start-hp" id="start-hp"></div>
-      <div class="start-ready">准备战斗！</div>
-    </div>
-  </div>
+  <div id="ui-intro" class="ui"><div class="intro" id="intro"></div></div>
 
-  <!-- 通关 -->
-  <div id="ui-win" class="ui-overlay">
-    <div class="menu-box result-box">
-      <div class="result-icon">🎉</div>
-      <h2 id="win-title">胜利！</h2>
-      <div class="result-stars" id="win-stars"></div>
-      <p id="win-msg"></p>
-      <div class="result-btns">
-        <button class="btn btn-next" id="btn-next" onclick="Game.nextLevel()">下一关 ▶</button>
-        <button class="btn btn-retry" onclick="Game.retryLevel()">再打一次</button>
-        <button class="btn btn-back" onclick="Game.showLevels()">选关卡</button>
+  <!-- 胜利 -->
+  <div id="ui-win" class="ui">
+    <div class="box">
+      <div class="ri">🎉</div>
+      <h2 id="win-t">胜利！</h2>
+      <div class="rstars" id="win-s"></div>
+      <p id="win-m"></p>
+      <div class="rbtns">
+        <button class="btn green" id="btn-nxt" onclick="G.nextLv()">下一关 ▶</button>
+        <button class="btn blue" onclick="G.retry()">再打一次</button>
+        <button class="btn ghost" onclick="G.showLevels()">选关卡</button>
       </div>
     </div>
   </div>
 
   <!-- 失败 -->
-  <div id="ui-lose" class="ui-overlay">
-    <div class="menu-box result-box">
-      <div class="result-icon">💀</div>
+  <div id="ui-lose" class="ui">
+    <div class="box">
+      <div class="ri">💀</div>
       <h2>被打败了…</h2>
-      <p id="lose-msg">别灰心，再来一次！</p>
-      <div class="result-btns">
-        <button class="btn btn-retry" onclick="Game.retryLevel()">🔄 再来！</button>
-        <button class="btn btn-back" onclick="Game.showLevels()">选关卡</button>
+      <p id="lose-m"></p>
+      <div class="rbtns">
+        <button class="btn blue" onclick="G.retry()">🔄 再来！</button>
+        <button class="btn ghost" onclick="G.showLevels()">选关卡</button>
       </div>
     </div>
   </div>
